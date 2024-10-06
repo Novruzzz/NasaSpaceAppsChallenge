@@ -18,7 +18,7 @@
         if (response.ok) {
             const data = await response.json();
             prediction = data.prediction.precision;
-            url = data.spectogram_url;
+            url = data.spectrogram_url;
 
 
         } else {
@@ -110,7 +110,7 @@
     {#if prediction && url}
         <div class="result">
             <h2>Prediction: {prediction}</h2>
-            <img src={url} alt="Spectogram" />
+            <img src={url} alt="Spectrogram" />
         </div>
     {/if}
 </div>
