@@ -1,12 +1,16 @@
 from flask import Flask, request, jsonify
 import requests
+import matplotlib
+matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 import numpy as np
 import librosa
 import os
 from obspy import read
+from flask_cors import CORS
 
 app = Flask(__name__)
+CORS(app)
 
 BLOB_SERVER_URL = "http://localhost:8080/blob"
 

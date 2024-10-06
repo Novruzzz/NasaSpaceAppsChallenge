@@ -1,8 +1,10 @@
 import os
 from flask import Flask, request, jsonify
 import requests
+from flask_cors import CORS
 
 app = Flask(__name__)
+CORS(app)
 
 spectogram_server_url = "http://localhost:5001/upload"
 classifier_server_url = "http://localhost:5002/upload"
@@ -10,6 +12,7 @@ classifier_server_url = "http://localhost:5002/upload"
 @app.route('/upload', methods=['POST'])
 def upload_file():
     if 'file' not in request.files:
+        print("No file part")
         return jsonify({"error": "No file part"}), 400
     file = request.files['file']
     if file.filename == '':
