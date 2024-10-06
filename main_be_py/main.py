@@ -33,3 +33,6 @@ def upload_file():
                 return jsonify({"error": "Failed to upload file to classifier server"}), 500
 
         return jsonify({"spectogram_url": spectogram_url, "prediction": prediction})
+    
+if __name__ == '__main__':
+    app.run(debug=True, port=5000)
