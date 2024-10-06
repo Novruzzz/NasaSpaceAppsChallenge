@@ -1,11 +1,7 @@
 import torch
 import torch.nn as nn
-import torch.nn.functional as F
 from flask import Flask, request, jsonify
-import pandas as pd
 import numpy as np
-from tqdm import tqdm
-from sklearn.metrics import recall_score, precision_score, f1_score
 from obspy import read
 import os
 import librosa
@@ -45,7 +41,7 @@ class CNNQuakeDetector(nn.Module):
         return out
 
 model = CNNQuakeDetector(n_classes=1)
-checkpoint_file = "/content/drive/MyDrive/NSAC/model.pt"
+checkpoint_file = "/data/NSAC/model.pt"
 model.load_state_dict(torch.load(checkpoint_file, map_location=device))
 model.to(device)
 model.eval()
@@ -61,11 +57,6 @@ class Dataset(torch.utils.data.Dataset):
 
     def __getitem__(self, index):
         return self.data[index], self.targets[index]
-
-# Load the training data
-data = torch.load("/data/NSAC/data.pt", weights_only=False)
-targets = torch.load("/data/NSAC/targets.pt", weights_only=False)
-dataset = Dataset(data, targets)
 
 # Define the route to handle file uploads
 @app.route('/upload', methods=['POST'])
